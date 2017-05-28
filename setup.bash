@@ -8,6 +8,7 @@ insert ~/.vimrc source ~/.vim.d/src.vim
 
 # tmux
 clone .tmux.d
+insert ~/.tmux.conf source ~/.tmux.d/src.conf
 
 # git
 clone .git.d
