@@ -7,6 +7,9 @@ clone() {
 insert() {
   local config=$1
   shift
+
+  touch $config
+
   if eval "grep -q '$@' $config"; then
     echo "skip: echo $@ >> $config"
   else
