@@ -1,0 +1,6 @@
+language: bash
+
+sudo: true
+
+script:
+- ./setup.bash
