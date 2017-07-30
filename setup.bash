@@ -18,3 +18,9 @@ link ~/.gitconfig ~/.git.d/.gitconfig
 clone .bash.d
 insert ~/.bashrc unset TMUX
 insert ~/.bashrc source ~/.bash.d/src.bash
+
+# ansible
+sudo apt-get install -y software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install -y ansible
