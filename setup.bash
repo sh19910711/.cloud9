@@ -2,20 +2,22 @@
 
 source ./utils.bash
 
+clone .vim.d &
+clone .tmux.d &
+clone .git.d &
+clone .bash.d &
+wait
+
 # vim
-clone .vim.d
 insert ~/.vimrc source ~/.vim.d/src.vim
 
 # tmux
-clone .tmux.d
 insert ~/.tmux.conf source ~/.tmux.d/src.conf
 
 # git
-clone .git.d
 link ~/.gitconfig ~/.git.d/.gitconfig
 
 # bash
-clone .bash.d
 insert ~/.bashrc unset TMUX
 insert ~/.bashrc source ~/.bash.d/src.bash
 
