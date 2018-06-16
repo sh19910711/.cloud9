@@ -75,6 +75,14 @@ Resources:
       FromPort: 0
       ToPort: 65535
 
+  HostedZone:
+    Type: AWS::Route53::HostedZone
+    Properties:
+      Name: cloud9
+      VPCs:
+        - VPCId: !Ref VPC
+          VPCRegion: !Ref AWS::Region
+
 Outputs:
   PublicSubnet:
     Value: !Ref PublicSubnet
@@ -88,3 +96,7 @@ Outputs:
     Value: !Ref SecurityGroup
     Export:
       Name: !Sub "${AWS::StackName}-SecurityGroup"
+  HostedZone:
+    Value: !Ref HostedZone
+    Export:
+      Name: !Sub "${AWS::StackName}-HostedZone"
