@@ -25,6 +25,17 @@ cloud9: tmp
 		--stack-name cloud9 \
 		--capabilities CAPABILITY_IAM
 
+gpu: tmp
+	aws cloudformation package \
+		--template-file gpu.yml \
+		--s3-bucket cloud9 \
+		--s3-prefix cloudformation/gpu \
+		--output-template-file tmp/packaged-gpu.yml
+
+	aws cloudformation deploy \
+		--template-file tmp/packaged-gpu.yml \
+		--stack-name cloud9-gpu\
+		--capabilities CAPABILITY_IAM
+
 clean:
-	aws cloudformation delete-stack --stack-name cloud9
-	aws cloudformation delete-stack --stack-name vpc
+	aws cloudformation delete-stack --stack-name cloud9-gpu

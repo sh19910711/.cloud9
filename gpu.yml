@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Resources:
+  Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-9d0d7fe2
+      InstanceType: p2.xlarge
+      KeyName: gateway
+      SecurityGroupIds:
+        - !ImportValue "cloud9-vpc-SecurityGroup"
+      SubnetId: !ImportValue "cloud9-vpc-PrivateSubnet"
