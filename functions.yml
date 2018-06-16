@@ -1,0 +1,23 @@
+Transform: 'AWS::Serverless-2016-10-31'
+
+Resources:
+  AutoStopFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: autostop.lambda_handler
+      CodeUri: ./functions/autostop.py
+      Runtime: python3.6
+      Events:
+        Watch:
+          Type: CloudWatchEvent
+          Properties:
+            Pattern:
+              source:
+                - aws.ec2
+              resources:
+                - !Sub 'arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/i-09f00c991f9dc421d'
+              detail:
+                state:
+                  - stopping
+      Policies:
+        - AmazonEC2FullAccess
