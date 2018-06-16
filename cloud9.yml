@@ -7,4 +7,4 @@ Resources:
       AutomaticStopTimeMinutes: 30
       InstanceType: t2.micro
       Name: gateway
-      SubnetId: !ImportValue vpc-PublicSubnet
+      SubnetId: !ImportValue cloud9-vpc-PublicSubnet

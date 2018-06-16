@@ -10,7 +10,7 @@ vpc: tmp
 
 	aws cloudformation deploy \
 		--template-file tmp/packaged-vpc.yml \
-		--stack-name vpc \
+		--stack-name cloud9-vpc \
 		--capabilities CAPABILITY_IAM
 
 cloud9: tmp
