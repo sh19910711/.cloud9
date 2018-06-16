@@ -22,9 +22,6 @@ Resources:
 
   VPCInternetGateway:
     Type: AWS::EC2::VPCGatewayAttachment
-    DependsOn:
-      - VPC
-      - InternetGateway
     Properties:
       InternetGatewayId: !Ref InternetGateway
       VpcId: !Ref VPC
@@ -46,6 +43,12 @@ Resources:
     Properties:
       VpcId: !Ref VPC
       CidrBlock: 10.0.1.0/24
+
+  PrivateSubnetInternetRouteTable:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnet
+      RouteTableId: !Ref InternetRouteTable
 
   PrivateSubnetRouteTable:
     Type: AWS::EC2::RouteTable
