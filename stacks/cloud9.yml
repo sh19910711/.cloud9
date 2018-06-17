@@ -5,6 +5,6 @@ Resources:
     Type: AWS::Cloud9::EnvironmentEC2
     Properties:
       AutomaticStopTimeMinutes: 30
-      InstanceType: t2.micro
+      InstanceType: t2.nano
       Name: gateway
       SubnetId: !ImportValue cloud9-vpc-PublicSubnet
