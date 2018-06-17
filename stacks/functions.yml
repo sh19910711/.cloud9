@@ -15,7 +15,7 @@ Resources:
               source:
                 - aws.ec2
               resources:
-                - !Sub 'arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/i-09922a320ef961d86'
+                - !Sub 'arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/i-02c5ae0949e54748e'
               detail:
                 state:
                   - stopping
