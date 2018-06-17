@@ -12,12 +12,6 @@ Resources:
       SubnetId: !ImportValue "cloud9-vpc-PrivateSubnet"
       IamInstanceProfile: !Ref InstanceProfile
 
-  InstanceEIP:
-    Type: AWS::EC2::EIP
-    Properties:
-      InstanceId: !Ref Instance
-      Domain: vpc
-
   InstanceRole:
     Type: AWS::IAM::Role
     Properties:

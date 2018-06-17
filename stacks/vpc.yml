@@ -8,18 +8,6 @@ Resources:
   InternetGateway:
     Type: AWS::EC2::InternetGateway
 
-  InternetRouteTable:
-    Type: AWS::EC2::RouteTable
-    Properties:
-      VpcId: !Ref VPC
-
-  InternetRoute:
-    Type: AWS::EC2::Route
-    Properties:
-      RouteTableId: !Ref InternetRouteTable
-      DestinationCidrBlock: 0.0.0.0/0
-      GatewayId: !Ref InternetGateway
-
   VPCInternetGateway:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
@@ -33,10 +21,22 @@ Resources:
       CidrBlock: 10.0.0.0/24
 
   PublicSubnetRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+
+  PublicSubnetRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicSubnetRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref PublicSubnet
-      RouteTableId: !Ref InternetRouteTable
+      RouteTableId: !Ref PublicSubnetRouteTable
 
   PrivateSubnet:
     Type: AWS::EC2::Subnet
@@ -44,16 +44,17 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 10.0.1.0/24
 
-  PrivateSubnetInternetRouteTable:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId: !Ref PrivateSubnet
-      RouteTableId: !Ref InternetRouteTable
-
   PrivateSubnetRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
+
+  PrivateSubnetRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateSubnetRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      InstanceId: !ImportValue 'cloud9-InstanceId'
 
   PrivateSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
@@ -74,9 +75,7 @@ Resources:
     Properties:
       GroupId: !Ref SecurityGroup
       SourceSecurityGroupId: !Ref SecurityGroup
-      IpProtocol: TCP
-      FromPort: 0
-      ToPort: 65535
+      IpProtocol: -1
 
   HostedZone:
     Type: AWS::Route53::HostedZone

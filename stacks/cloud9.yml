@@ -8,3 +8,9 @@ Resources:
       InstanceType: t2.nano
       Name: gateway
       SubnetId: !ImportValue cloud9-vpc-PublicSubnet
+
+Outputs:
+  InstanceId:
+    Value: i-02c5ae0949e54748e
+    Export:
+      Name: !Sub "${AWS::StackName}-InstanceId"
