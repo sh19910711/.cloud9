@@ -6,3 +6,6 @@ supervisor:
 
 gpu:
 	python functions/launch_gpu_instance.py
+
+clean:
+	python functions/autostop.py

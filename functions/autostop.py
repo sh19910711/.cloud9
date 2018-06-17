@@ -1,6 +1,6 @@
 import boto3
 
-def lambda_handler(event, context):
+def stop():
     ec2 = boto3.resource('ec2')
 
     instances = ec2.instances.filter(
@@ -16,4 +16,9 @@ def lambda_handler(event, context):
         print('stop instance: {}'.format(i))
         i.stop()
 
+def lambda_handler(event, context):
+    stop()
     return 'OK'
+
+if __name__ == "__main__":
+    stop()
