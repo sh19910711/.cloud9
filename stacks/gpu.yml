@@ -10,12 +10,60 @@ Resources:
       SecurityGroupIds:
         - !ImportValue "cloud9-vpc-SecurityGroup"
       SubnetId: !ImportValue "cloud9-vpc-PrivateSubnet"
+      IamInstanceProfile: !Ref InstanceProfile
 
   InstanceEIP:
     Type: AWS::EC2::EIP
     Properties:
       InstanceId: !Ref Instance
       Domain: vpc
+
+  InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+
+  InstanceRoleS3FullPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: S3Full
+      Roles:
+        - !Ref InstanceRole
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Resource: "*"
+            Action:
+              - "s3:*"
+
+  InstanceRoleAthenaFullPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AthenaFull
+      Roles:
+        - !Ref InstanceRole
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Resource: "*"
+            Action:
+              - "athena:*"
+              - "glue:getTable"
+
+  InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - !Ref InstanceRole
 
   DNSRecord:
     Type: AWS::Route53::RecordSet
