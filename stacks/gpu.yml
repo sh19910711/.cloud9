@@ -24,7 +24,7 @@ Resources:
       SubnetId: !ImportValue "cloud9-vpc-PrivateSubnet"
       IamInstanceProfile: !Ref InstanceProfile
 
-  T2SmallName:
+  T2SmallDNSRecord:
     Type: AWS::Route53::RecordSet
     Properties:
       HostedZoneId: !ImportValue "cloud9-vpc-HostedZone"
