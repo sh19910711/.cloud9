@@ -5,7 +5,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: autostop.lambda_handler
-      CodeUri: ./functions/autostop.py
+      CodeUri: ../functions/autostop.py
       Runtime: python3.6
       Events:
         Watch:
@@ -15,7 +15,7 @@ Resources:
               source:
                 - aws.ec2
               resources:
-                - !Sub 'arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/i-09f00c991f9dc421d'
+                - !Sub 'arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/i-09922a320ef961d86'
               detail:
                 state:
                   - stopping
