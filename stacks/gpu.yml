@@ -34,6 +34,28 @@ Resources:
       ResourceRecords:
         - !GetAtt T2Small.PrivateIp
 
+  Compute:
+    Type: AWS::EC2::Instance
+    Properties:
+      # Amazon Linux 2 LTS Candidate 2 AMI (HVM), SSD Volume Type - ami-afd15ed0
+      ImageId: ami-afd15ed0
+      InstanceType: c5.xlarge
+      KeyName: gateway
+      SecurityGroupIds:
+        - !ImportValue "cloud9-vpc-SecurityGroup"
+      SubnetId: !ImportValue "cloud9-vpc-PrivateSubnet"
+      IamInstanceProfile: !Ref InstanceProfile
+
+  ComputeDNSRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !ImportValue "cloud9-vpc-HostedZone"
+      Name: compute.cloud9
+      Type: A
+      TTL: 300
+      ResourceRecords:
+        - !GetAtt T2Small.PrivateIp
+
   InstanceRole:
     Type: AWS::IAM::Role
     Properties:
