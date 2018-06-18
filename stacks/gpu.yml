@@ -54,7 +54,7 @@ Resources:
       Type: A
       TTL: 300
       ResourceRecords:
-        - !GetAtt T2Small.PrivateIp
+        - !GetAtt Compute.PrivateIp
 
   InstanceRole:
     Type: AWS::IAM::Role
