@@ -1,3 +1,2 @@
-FROM nginx:1.15.0
-
+FROM openresty/openresty:alpine
 COPY default.conf /etc/nginx/conf.d/default.conf
