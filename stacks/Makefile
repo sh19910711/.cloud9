@@ -10,8 +10,7 @@ vpc: tmp
 
 	aws cloudformation deploy \
 		--template-file tmp/packaged-vpc.yml \
-		--stack-name cloud9-vpc \
-		--capabilities CAPABILITY_IAM
+		--stack-name cloud9-vpc
 
 cloud9: tmp
 	aws cloudformation package \
@@ -22,8 +21,7 @@ cloud9: tmp
 
 	aws cloudformation deploy \
 		--template-file tmp/packaged-cloud9.yml \
-		--stack-name cloud9 \
-		--capabilities CAPABILITY_IAM
+		--stack-name cloud9
 
 .PHONY: functions
 functions: tmp
@@ -35,17 +33,16 @@ functions: tmp
 
 	aws cloudformation deploy \
 		--template-file tmp/packaged-functions.yml \
-		--stack-name cloud9-functions \
-		--capabilities CAPABILITY_IAM
+		--stack-name cloud9-functions
 
-gpu: tmp
+instance: tmp
 	aws cloudformation package \
-		--template-file gpu.yml \
+		--template-file instance.yml \
 		--s3-bucket cloud9-tmp \
-		--s3-prefix cloudformation/gpu \
-		--output-template-file tmp/packaged-gpu.yml
+		--s3-prefix cloudformation/instance \
+		--output-template-file tmp/packaged-instance.yml
 
 	aws cloudformation deploy \
-		--template-file tmp/packaged-gpu.yml \
-		--stack-name cloud9-gpu\
+		--template-file tmp/packaged-instance.yml \
+		--stack-name cloud9-instance\
 		--capabilities CAPABILITY_IAM
