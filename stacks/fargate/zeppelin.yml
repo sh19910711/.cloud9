@@ -1,0 +1,35 @@
+Resources:
+  Cluster:
+    Type: AWS::ECS::Cluster
+
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref Cluster
+      DesiredCount: 1
+      LaunchType: FARGATE
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          SecurityGroups:
+            - !ImportValue cloud9-vpc-SecurityGroup
+          Subnets:
+            - !ImportValue cloud9-vpc-PrivateSubnet
+      TaskDefinition: !Ref Task
+
+  Task:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Cpu: 256
+      Memory: 512
+      ExecutionRoleArn: !ImportValue cloud9-instance-InstanceRoleArn
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ContainerDefinitions:
+        - Name: zeppelin
+          Image: 'apache/zeppelin:0.7.3'
+          MemoryReservation: 512
+          PortMappings:
+            - HostPort: 8080
+              Protocol: tcp
+              ContainerPort: 8080

@@ -58,3 +58,14 @@ fargate_nginx: tmp
 	aws cloudformation deploy \
 		--template-file tmp/packaged-template.yml \
 		--stack-name cloud9-fargate-nginx
+
+zeppelin: tmp
+	aws cloudformation package \
+		--template-file fargate/zeppelin.yml \
+		--s3-bucket cloud9-tmp \
+		--s3-prefix cloudformation/fargate/zeppelin \
+		--output-template-file tmp/packaged-template.yml
+
+	aws cloudformation deploy \
+		--template-file tmp/packaged-template.yml \
+		--stack-name cloud9-fargate-zeppelin
