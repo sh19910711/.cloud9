@@ -33,7 +33,8 @@ functions: tmp
 
 	aws cloudformation deploy \
 		--template-file tmp/packaged-functions.yml \
-		--stack-name cloud9-functions
+		--stack-name cloud9-functions \
+		--capabilities CAPABILITY_IAM
 
 instance: tmp
 	aws cloudformation package \
