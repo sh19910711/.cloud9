@@ -19,8 +19,8 @@ Resources:
   Task:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Cpu: 256
-      Memory: 512
+      Cpu: 1024
+      Memory: 2048
       ExecutionRoleArn: !ImportValue cloud9-instance-InstanceRoleArn
       NetworkMode: awsvpc
       RequiresCompatibilities:
@@ -28,7 +28,14 @@ Resources:
       ContainerDefinitions:
         - Name: zeppelin
           Image: 'apache/zeppelin:0.7.3'
-          MemoryReservation: 512
+          MemoryReservation: 2048
+          Environment:
+            - Name: ZEPPELIN_NOTEBOOK_STORAGE
+              Value: org.apache.zeppelin.notebook.repo.S3NotebookRepo
+            - Name: ZEPPELIN_NOTEBOOK_S3_BUCKET
+              Value: cloud9-tmp
+            - Name: ZEPPELIN_NOTEBOOK_S3_USER
+              Value: zeppelin/notebook
           PortMappings:
             - HostPort: 8080
               Protocol: tcp
