@@ -3,7 +3,7 @@ import re
 
 def stop():
     cf = boto3.client('cloudformation')
-    pat = re.compile('cloud9-fargate')
+    pat = re.compile('cloud9-ecs')
     for s in cf.describe_stacks()['Stacks']:
         if pat.search(s['StackId']):
             print(cf.delete_stack(StackName=s['StackName']))
