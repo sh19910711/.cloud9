@@ -68,4 +68,4 @@ zeppelin: tmp
 
 	aws cloudformation deploy \
 		--template-file tmp/packaged-template.yml \
-		--stack-name cloud9-fargate-zeppelin
+		--stack-name cloud9-ecs-zeppelin

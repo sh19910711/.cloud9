@@ -15,7 +15,7 @@ Resources:
             Effect: Allow
       Path: /
 
-  InstanceRoleEC2FullAccess:
+  InstanceRolePolicy:
     Type: AWS::IAM::Policy
     Properties:
       PolicyName: EC2Full
@@ -27,33 +27,10 @@ Resources:
             Resource: "*"
             Action:
               - "ec2:*"
-
-  InstanceRoleS3FullPolicy:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyName: S3Full
-      Roles:
-        - !Ref InstanceRole
-      PolicyDocument:
-        Statement:
-          - Effect: Allow
-            Resource: "*"
-            Action:
+              - "logs:*"
               - "s3:*"
-
-  InstanceRoleAthenaFullPolicy:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyName: AthenaFull
-      Roles:
-        - !Ref InstanceRole
-      PolicyDocument:
-        Statement:
-          - Effect: Allow
-            Resource: "*"
-            Action:
               - "athena:*"
-              - "glue:getTable"
+              - "glue:*"
 
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile

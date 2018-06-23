@@ -22,6 +22,7 @@ Resources:
       Policies:
         - AmazonEC2FullAccess
         - AmazonEC2ContainerServiceFullAccess
+        - CloudWatchLogsFullAccess
 
   ECSAssignPrivateDomain:
     Type: AWS::Serverless::Function

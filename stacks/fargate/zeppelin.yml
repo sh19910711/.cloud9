@@ -16,18 +16,24 @@ Resources:
             - !ImportValue cloud9-vpc-PrivateSubnet
       TaskDefinition: !Ref Task
 
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+        RetentionInDays: 7
+
   Task:
     Type: AWS::ECS::TaskDefinition
     Properties:
       Cpu: 1024
       Memory: 2048
+      TaskRoleArn: !ImportValue cloud9-instance-InstanceRoleArn
       ExecutionRoleArn: !ImportValue cloud9-instance-InstanceRoleArn
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
       ContainerDefinitions:
         - Name: zeppelin
-          Image: 'apache/zeppelin:0.7.3'
+          Image: 'sh19910711/zeppelin:0.7.3'
           MemoryReservation: 2048
           Environment:
             - Name: ZEPPELIN_NOTEBOOK_STORAGE
@@ -40,3 +46,9 @@ Resources:
             - HostPort: 8080
               Protocol: tcp
               ContainerPort: 8080
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref LogGroup
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: awslogs-ecs-zeppelin
