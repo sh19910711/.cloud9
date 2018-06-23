@@ -1,8 +1,14 @@
 import boto3
+import re
 
 def stop():
-    ec2 = boto3.resource('ec2')
+    cf = boto3.client('cloudformation')
+    pat = re.compile('cloud9-fargate')
+    for s in cf.describe_stacks()['Stacks']:
+        if pat.search(s['StackId']):
+            print(cf.delete_stack(StackName=s['StackName']))
 
+    ec2 = boto3.resource('ec2')
     instances = ec2.instances.filter(
         Filters=[{
             'Name': 'tag-key',
@@ -11,7 +17,6 @@ def stop():
             'Name': 'tag-value',
             'Values': ['cloud9-gpu']
         }])
-
     for i in instances:
         print('stop instance: {}'.format(i))
         i.stop()

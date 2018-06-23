@@ -21,6 +21,7 @@ Resources:
                   - stopping
       Policies:
         - AmazonEC2FullAccess
+        - AmazonEC2ContainerServiceFullAccess
 
   ECSAssignPrivateDomain:
     Type: AWS::Serverless::Function
