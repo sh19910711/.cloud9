@@ -6,13 +6,27 @@ Resources:
     Properties:
       AssumeRolePolicyDocument:
         Statement:
-          - Effect: Allow
-            Principal:
+          - Principal:
               Service:
                 - ec2.amazonaws.com
-            Action:
-              - 'sts:AssumeRole'
+                - ecs.amazonaws.com
+                - ecs-tasks.amazonaws.com
+            Action: 'sts:AssumeRole'
+            Effect: Allow
       Path: /
+
+  InstanceRoleEC2FullAccess:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: EC2Full
+      Roles:
+        - !Ref InstanceRole
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Resource: "*"
+            Action:
+              - "ec2:*"
 
   InstanceRoleS3FullPolicy:
     Type: AWS::IAM::Policy
@@ -47,3 +61,9 @@ Resources:
       Path: /
       Roles:
         - !Ref InstanceRole
+
+Outputs:
+  InstanceRoleArn:
+    Value: !GetAtt InstanceRole.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-InstanceRoleArn"

@@ -44,5 +44,16 @@ instance: tmp
 
 	aws cloudformation deploy \
 		--template-file tmp/packaged-instance.yml \
-		--stack-name cloud9-instance\
+		--stack-name cloud9-instance \
 		--capabilities CAPABILITY_IAM
+
+fargate_nginx: tmp
+	aws cloudformation package \
+		--template-file fargate/nginx.yml \
+		--s3-bucket cloud9-tmp \
+		--s3-prefix cloudformation/fargate/nginx \
+		--output-template-file tmp/packaged-template.yml
+
+	aws cloudformation deploy \
+		--template-file tmp/packaged-template.yml \
+		--stack-name cloud9-fargate-nginx
