@@ -31,6 +31,8 @@ Resources:
               - "s3:*"
               - "athena:*"
               - "glue:*"
+              - "cloudformation:*"
+              - "dynamodb:*"
 
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile
