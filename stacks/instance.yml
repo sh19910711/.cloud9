@@ -33,6 +33,7 @@ Resources:
               - "glue:*"
               - "cloudformation:*"
               - "dynamodb:*"
+              - "iam:*"
 
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile

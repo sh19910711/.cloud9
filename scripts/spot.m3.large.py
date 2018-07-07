@@ -6,7 +6,7 @@ res = ec2.request_spot_instances(
         InstanceCount=1,
         LaunchSpecification={
             'InstanceType': 'm3.large',
-            'ImageId': 'ami-afd15ed0', # Amazon Linux 2 LTS Candidate 2 AMI (HVM), SSD Volume Type
+            'ImageId': 'ami-cfe4b2b0', # Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type
             'KeyName': 'gateway',
             'SubnetId': 'subnet-54c51908',
             'SecurityGroupIds': [
