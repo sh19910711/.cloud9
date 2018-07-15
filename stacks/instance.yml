@@ -27,6 +27,11 @@ Resources:
             Resource: "*"
             Action:
               - "ec2:*"
+              - "ecs:*"
+              - "autoscaling:*"
+              - "elasticloadbalancing:*"
+              - "application-autoscaling:*"
+              - "cloudwatch:*"
               - "logs:*"
               - "s3:*"
               - "athena:*"
@@ -34,6 +39,7 @@ Resources:
               - "cloudformation:*"
               - "dynamodb:*"
               - "iam:*"
+              - "cloudfront:*"
 
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile
