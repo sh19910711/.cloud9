@@ -2,7 +2,7 @@ import boto3
 
 ec2 = boto3.client('ec2', region_name='us-east-1')
 res = ec2.request_spot_instances(
-        SpotPrice='0.0287',
+        SpotPrice='0.0308',
         InstanceCount=1,
         LaunchSpecification={
             'InstanceType': 'm3.large',
