@@ -44,6 +44,13 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 10.0.1.0/24
 
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.3.0/24
+      AvailabilityZone: us-east-1b
+
   PrivateSubnetRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
@@ -60,6 +67,12 @@ Resources:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref PrivateSubnet
+      RouteTableId: !Ref PrivateSubnetRouteTable
+
+  PrivateSubnetRouteTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnet2
       RouteTableId: !Ref PrivateSubnetRouteTable
 
   SecurityGroup:
