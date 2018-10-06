@@ -75,6 +75,15 @@ Resources:
       SubnetId: !Ref PrivateSubnet2
       RouteTableId: !Ref PrivateSubnetRouteTable
 
+  S3Endpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      VpcId: !Ref VPC
+      RouteTableIds:
+        - !Ref PublicSubnetRouteTable
+        - !Ref PrivateSubnetRouteTable
+      ServiceName: !Sub "com.amazonaws.${AWS::Region}.s3"
+
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
