@@ -41,6 +41,8 @@ Resources:
               - "iam:*"
               - "cloudfront:*"
               - "eks:*"
+              - "lambda:*"
+              - "sqs:*"
 
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile
