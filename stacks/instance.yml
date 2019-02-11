@@ -43,6 +43,7 @@ Resources:
               - "eks:*"
               - "lambda:*"
               - "sqs:*"
+              - "batch:*"
 
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile

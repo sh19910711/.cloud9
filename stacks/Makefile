@@ -69,3 +69,15 @@ zeppelin: tmp
 	aws cloudformation deploy \
 		--template-file tmp/packaged-template.yml \
 		--stack-name cloud9-ecs-zeppelin
+
+batch: tmp
+	aws cloudformation package \
+		--template-file batch.yml \
+		--s3-bucket cloud9-tmp \
+		--s3-prefix cloudformation \
+		--output-template-file tmp/packaged-template.yml
+
+	aws cloudformation deploy \
+		--template-file tmp/packaged-template.yml \
+		--stack-name cloud9-batch \
+		--capabilities CAPABILITY_IAM
