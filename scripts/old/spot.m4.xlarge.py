@@ -2,11 +2,12 @@ import boto3
 
 ec2 = boto3.client('ec2', region_name='us-east-1')
 res = ec2.request_spot_instances(
-        SpotPrice='0.0318',
+        SpotPrice='0.08',
         InstanceCount=1,
         LaunchSpecification={
-            'InstanceType': 'm3.large',
-            'ImageId': 'ami-cfe4b2b0', # Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type
+            'InstanceType': 'm4.xlarge',
+            # 'ImageId': 'ami-cfe4b2b0', # Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type
+            'ImageId': 'ami-0522012eae8cd4656',    
             'KeyName': 'gateway',
             'SubnetId': 'subnet-54c51908',
             'SecurityGroupIds': [

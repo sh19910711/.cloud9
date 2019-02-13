@@ -1,0 +1,14 @@
+aws emr create-cluster \
+  --auto-scaling-role EMR_AutoScaling_DefaultRole \
+  --applications Name=Hadoop Name=Hive Name=Pig Name=Hue Name=Spark Name=JupyterHub Name=Zeppelin \
+  --ebs-root-volume-size 10 \
+  --ec2-attributes '{"KeyName":"gateway","AdditionalSlaveSecurityGroups":["sg-84508fcf"],"InstanceProfile":"EMR_EC2_DefaultRole","ServiceAccessSecurityGroup":"sg-03ac7662eb84993ad","SubnetId":"subnet-54c51908","EmrManagedSlaveSecurityGroup":"sg-03236ddf6e77ca7e4","EmrManagedMasterSecurityGroup":"sg-061451d84ee2a11f1","AdditionalMasterSecurityGroups":["sg-84508fcf"]}' \
+  --service-role EMR_DefaultRole \
+  --enable-debugging \
+  --release-label emr-5.20.0 \
+  --log-uri 's3n://aws-logs-845933287843-us-east-1/elasticmapreduce/' \
+  --name 'My cluster' \
+  --instance-groups '[{"InstanceCount":1,"BidPrice":"OnDemandPrice","InstanceGroupType":"CORE","InstanceType":"m3.xlarge","Name":"Core - 2"},{"InstanceCount":8,"BidPrice":"OnDemandPrice","InstanceGroupType":"TASK","InstanceType":"m3.xlarge","Name":"Task - 3"},{"InstanceCount":1,"BidPrice":"OnDemandPrice","InstanceGroupType":"MASTER","InstanceType":"m3.xlarge","Name":"Master - 1"}]' \
+  --configurations '[{"Classification":"hive-site","Properties":{"hive.metastore.client.factory.class":"com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory"},"Configurations":[]},{"Classification":"spark-hive-site","Properties":{"hive.metastore.client.factory.class":"com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory"},"Configurations":[]}]' \
+  --scale-down-behavior TERMINATE_AT_TASK_COMPLETION \
+  --region us-east-1
