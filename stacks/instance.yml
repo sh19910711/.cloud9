@@ -46,6 +46,7 @@ Resources:
               - "sqs:*"
               - "batch:*"
               - "sagemaker:*"
+              - "servicediscovery:*"
 
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile
